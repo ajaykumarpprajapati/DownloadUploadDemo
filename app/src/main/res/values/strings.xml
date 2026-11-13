@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Download Upload Demo</string>
+    <string name="download">Download</string>
+    <string name="upload">Upload file…</string>
+    <string name="cancel">Cancel</string>
+    <string name="hint">Start a transfer, then leave the app. It keeps running with a notification.</string>
+</resources>

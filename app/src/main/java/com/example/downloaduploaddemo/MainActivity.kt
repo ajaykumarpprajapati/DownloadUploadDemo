@@ -22,7 +22,11 @@ class MainActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri: Uri? ->
             if (uri != null) {
                 // Keep read access so a rescheduled job can still open the file later.
-                contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                // Not every provider offers persistable grants; the transfer still works without it.
+                try {
+                    contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                } catch (_: SecurityException) {
+                }
                 val size = TransferEngine.describe(this, uri).second
                 start(TransferWork.TYPE_UPLOAD, binding.etUploadUrl.text.toString(), uri.toString(), size)
             }
